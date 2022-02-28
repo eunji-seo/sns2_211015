@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+header{height:80px;}
+
+footer{height:50px}
+li{list-style:none}
+
+h1{line-height:center;}
+
+/* sign_up */
+
+.signUpBox{width:500px; margin-top:300px;border:1px solid #ccc; box-shadow: 3px 3px 3px 3px #ccc;}
+
+
+/* sign_in */
+.join {width:230px;}
+.input-form {width:230px; margin-left:10px;}
+.btn-form {width:300px;}
+.login-box{width:600px; margin-top:100px;border:1px solid #ccc; box-shadow: 3px 3px 3px 3px #ccc;}
+
+/* timeline */
+.cleateTimeline{postion:relative;}
+.cleateTimelineUpload{
+	width:100%;
+	postion:absolute;
+	bottom:10%;
+	}
