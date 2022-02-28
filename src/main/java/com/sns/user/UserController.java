@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 	
-
+		/**
+		 * 
+		 * @param model
+		 * @return
+		 */
 		@RequestMapping("/sign_up_view")
 		public String signUpView(Model model) {
 			model.addAttribute("viewName", "user/sign_up"); // user 레이아웃 변경 
@@ -19,14 +23,22 @@ public class UserController {
 		}
 		
 		
-		
+		/**
+		 * 
+		 * @param model
+		 * @return
+		 */
 		
 		@RequestMapping("/sign_in_view")
 		public String signInView(Model model) {
 			model.addAttribute("viewName", "user/sign_in"); // user 레이아웃 변경 
 			return"template/layout";
 		}
-		
+		/**
+		 * 
+		 * @param request
+		 * @return
+		 */
 		@RequestMapping("/sign_out")
 		public String signOut(
 				HttpServletRequest request) {

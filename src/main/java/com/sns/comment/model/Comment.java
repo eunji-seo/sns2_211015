@@ -1,4 +1,4 @@
-package com.sns.timeline.model;
+package com.sns.comment.model;
 
 import java.util.Date;
 

@@ -1,55 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="d-flex justify-content-center align-items-center">
-	<div class="login-box text-center">
-		<h1 class="mb-4">로그인</h1>
-		<form id="loginForm" action="/timeline/timeline_list_view" method="post">
-		<div class="d-flex justify-content-center mr-2 mb-3">
-			<span class="">아이디</span>
-			<input type="text" id="loginId" name="loginId" class="form-control input-form">
-		</div>
-		<div class="d-flex justify-content-center mr-3 mb-3">
-			<span class="">비밀번호</span>
-			<input type="password" id="password" name="password" class="form-control input-form">
-		</div>
-		<div class="mr-3 mb-3">
-			<input type="submit" class="joinBtn btn btn-primary btn-form mb-2" value="로그인">
-			<a href="/user/sign_up_view" type="button" class="signUpBtn btn btn-dark btn-form">회원가입</a>
-		</div>
-		</form>
-	</div>
+    
+    
+    
+    
+<form id="loginIdForm" method="post" action="/user/sign_in">
+
+<section class="d-flex justify-content-center">
+
 	
-</div>
+	<section class="login-box border rounded d-flex justify-content-center ">
+		<div class="m-5">
+			
+				
+			<div class="d-flex justify-content-center mb-3">
+				<div><input type="text" id="loginId" name="loginId" class="form-control" placeholder="아이디"></div>
+			</div>
+	
+			<div class="d-flex justify-content-center mb-3">
+				<div><input type="password" id="password" name="password" class="form-control" placeholder="비밀번호"></div>
+			</div>
+		
+			<div class="d-flex justify-content-center mb-3">
+				<button type="submit" id="signInBtn" class="btn-primary form-control col-12">로그인</button>
+			</div>
+	
+			
+			<div class="border rounded py-3 text-center">
+				계정이 없으신가요? <a href="/user/sign_up_view">가입하기</a>
+			</div>
+		</div>
+	</section>
+	
+</section>
+</form>
+
+<!--form태그 사용시 3종 세트: form태그 , name, 버튼 타입:submit  -->
 <script>
-$(document).ready(function(){
-	 $('#loginForm').on('submit',function(e){
-		// e.preventDefault(e);
-		 //validation
-		 let loginId = $('#loginId').val().trim();
-		 if(loginId ==''){
-			 alert("아이디를 입력해주세요.");
-			 return;
-		 }
-		 let password = $('#password').val().trim();
-		 if(password ==''){
-			 alert("비밀번호를 입력해주세요.");
-			 return;
-		 }
-		 
-		 let url= $(this).attr('action');
-		 let params = $(this).serialize();
-		 
-		 $.post(url, params)
-		 .done(function(data){
-			 if(data.result == "success"){
-				 alert(data.success);
-				 location.href="/timeline/timeline_list_view";
-			 } else {
-				 alert(data.errorMassage);
-			 }
-			 
-		 });
-		 
-	 });
-});
+	$(document).ready(function(){
+		//alert("click");
+		$('#loginIdForm').on('submit',function(e) {
+			//alert("click");
+			e.preventDefault();
+			
+			var loginId = $('#loginId').val().trim();
+			
+			if (loginId == '') {
+				alert("아이디를 입력해주세요");
+				return false;
+			}
+			var password = $('#password').val();
+			if (password == '') {
+				alert("비밀번호를 입력해주세요");
+				return false;
+			}
+			
+			// ajax 호출
+			
+			var url = $(this).attr('action');
+			var params = $(this).serialize();
+			
+		 	$.post(url,params)
+			.done(function(data) {
+				 if (data.result == 'success') {
+					alert(loginId + "님 환영합니다!!!");
+					 location.href = "/timeline/timeline_list_view"; 
+				} else {
+					alert(data.errorMessage);
+				} 
+			});
+			
+		});
+		
+		
+	});
 </script>

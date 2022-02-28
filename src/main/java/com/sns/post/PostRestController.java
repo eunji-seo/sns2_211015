@@ -23,13 +23,23 @@ public class PostRestController {
 	
 	@Autowired
 	private PostBO postBO;
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/posts")
 	public List<Post> post(){	
 		List<Post> result = postBO.getPostList();
 		return result;
 	}
-	
+	/**
+	 * 
+	 * @param content
+	 * @param file
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("content") String content,

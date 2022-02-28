@@ -5,7 +5,7 @@
 <div class="d-flex justify-content-center m-5">
 	<div class="w-40">
 	
-		
+		<c:if test="${not empty userId}">
 		<div class="cleateTimeline-Group write-box border rounded m-3">		
 			<textarea id="content" name="content" class="cleateTimeline border-0 w-100" rows="5" ></textarea>
 			<div class="cleateTimelineUpload d-flex justify-content-between">
@@ -18,32 +18,37 @@
 				<button type="button" id="uploadBtn" class="btn btn-primary">업로드</button>
 			</div>	
 		</div>
+		</c:if>
 		<div class="timelinelist-group mt-3">
 			<div class="nickname-group mt-3">
 			<c:forEach var="item" items="${postList}">
-				<div class="bg-secondary h-10">
-					<span class="display-5 ml-2"><b>nickname</b></span>
-					<div class="delete">
-					</div>
+				<div class="bg-secondary h-10 border rounded d-flex justify-content-between pr-2">
+					<span class="display-5 ml-2 text-white"><b>nickname</b></span>
+						<%-- 클릭할 수 있는 ... 버튼 이미지 --%>
+						<a href="#" class="more-btn">
+							<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
+						</a>
+					
 				</div>
 				</ul class="list m-2">
 					<li><img width="400" src="${item.imagePath}" alt="이미지" class="m-2"/></li>
 					<li>${item.content}</li>
 				<ul>
 			
-				<div class="like-group d-flex justify-content-start mt-2">
-					<a href="#" class=""><img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/></a>
+				<div class="d-flex justify-content-start mt-2">
+					<a href="#" class="mr-2"><img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/></a>
 					<span class=""><b>좋아요 개</b></span>
 				</div>
 			</div>
 			<div class="comment-group m-2">
-				<div class="bg-secondary h-10">
-					<span class="ml-2"><b>댓글</b></span>
+				<div class="bg-secondary h-10 border rounded ">
+					<span class="ml-2 text-white"><b>댓글</b></span>
 				</div>
-				</div class="comment-list d-flex justify-content-start">
+				</div class="comment-list ">
 					<span class="ml-2"><b>d</b></span>
 					<span>d</span>
-				<div>
+					<a href="#" class="commentDelBtn"><img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px"></a>
+			<div>
 				<c:if test="${not empty userId}">
 					<div class="cleate-comment-group d-flex justify-content-start m-2">
 						<input type="text" id="commentText${post.id}" name="commentText" class="form-control" placeholder="댓글을 입력해주세요.">
@@ -141,8 +146,28 @@ $(document).ready(function(){
 	let postId= $(this).data('post-id'); //data-post-id 
 		alert(postId);
 	
-		let commetContent = $('#commentText' + postId).val();
-		alert(commetContent);
+		let commetText = $('#commentText' + postId).val();
+		alert(commetText);
+		
+		$.ajax({
+			type:"post"
+			,url:"/comment/create"
+			,data: {"postId":postId, "content":commetText}
+			,success: function(data){
+				if(data.result == 'success'){
+					alert("댓글이 입력되었습니다.")
+					location.reload();
+				}
+				
+			}
+			,error: function(e){
+				alert("댓글입력에 실패하였습니다. 관리자에 연락해주세요.")	
+			}
+			
+			
+			
+		});
+		
 	});
 	
 	
