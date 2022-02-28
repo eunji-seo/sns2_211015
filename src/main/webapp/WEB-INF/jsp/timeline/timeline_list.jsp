@@ -152,7 +152,7 @@ $(document).ready(function(){
 		$.ajax({
 			type:"post"
 			,url:"/comment/create"
-			,data: {"postId":postId, "content":commetText}
+			,data: {"postId":postId, "commentText":commetText}
 			,success: function(data){
 				if(data.result == 'success'){
 					alert("댓글이 입력되었습니다.")

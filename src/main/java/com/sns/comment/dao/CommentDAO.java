@@ -13,7 +13,7 @@ public interface CommentDAO {
 	public List<Comment> selectCommentList(int postId);
 	
 	public int insertCommentList(
-			@Param("userId") int userId, 
 			@Param("postId") int postId,
+			@Param("userId") int userId, 
 			@Param("content") String content);
 }

@@ -18,8 +18,8 @@ public class CommentBO {
 		return commentDAO.selectCommentList(postId);
 	}
 	
-	public int addCommentList(int userId, int postId, String content) {
-		return commentDAO.insertCommentList(userId, postId, content);
+	public int addCommentList(int postId, int userId, String content) {
+		return commentDAO.insertCommentList(postId, userId, content);
 	}
 
 }
