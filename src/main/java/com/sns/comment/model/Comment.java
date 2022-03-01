@@ -4,11 +4,19 @@ import java.util.Date;
 
 public class Comment {
 
+	private int id;
 	private int userId;
 	private int postId;
 	private String content;
 	private Date createdAt;
 	private Date updatedAt;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public int getUserId() {
 		return userId;
 	}
@@ -39,5 +47,7 @@ public class Comment {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+
 	
 }

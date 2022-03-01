@@ -16,24 +16,25 @@
 						</div>
 				</div>				
 				<button type="button" id="uploadBtn" class="btn btn-primary">업로드</button>
+				
 			</div>	
 		</div>
 		</c:if>
 		<div class="timelinelist-group mt-3">
+			<c:forEach var="content" items="${contentViewList}">	
 			<div class="nickname-group mt-3">
-			<c:forEach var="item" items="${postList}">
 				<div class="bg-secondary h-10 border rounded d-flex justify-content-between pr-2">
-					<span class="display-5 ml-2 text-white"><b>nickname</b></span>
+					<span class="display-5 ml-2 text-white"><b>${content.user.name}</b></span>
 						<%-- 클릭할 수 있는 ... 버튼 이미지 --%>
 						<a href="#" class="more-btn">
 							<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
 						</a>
 					
 				</div>
-				</ul class="list m-2">
-					<li><img width="400" src="${item.imagePath}" alt="이미지" class="m-2"/></li>
-					<li>${item.content}</li>
-				<ul>
+				<ul class="list m-2">
+					<li><img width="400" src="${content.post.imagePath}" alt="이미지" class="m-2"/></li>
+					<li>${content.post.content}</li>
+				</ul>
 			
 				<div class="d-flex justify-content-start mt-2">
 					<a href="#" class="mr-2"><img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/></a>
@@ -41,24 +42,32 @@
 				</div>
 			</div>
 			<div class="comment-group m-2">
+			<c:if test="${not empty content.commentList}">
 				<div class="bg-secondary h-10 border rounded ">
 					<span class="ml-2 text-white"><b>댓글</b></span>
 				</div>
-				</div class="comment-list ">
-					<span class="ml-2"><b>d</b></span>
-					<span>d</span>
-					<a href="#" class="commentDelBtn"><img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px"></a>
-			<div>
+				
+				<c:forEach var="comment" items="${content.commentList}">	
+					<div class="comment-list ">
+						<span class="ml-2"><b>댓글쓴이: ${comment.user.name}</b></span>
+						<span>${comment.comment.content}</span>
+						
+						<a href="#" class="commentDelBtn">
+							<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
+						</a>
+					</div>
+				</c:forEach>
+				
+			</c:if>
 				<c:if test="${not empty userId}">
 					<div class="cleate-comment-group d-flex justify-content-start m-2">
-						<input type="text" id="commentText${post.id}" name="commentText" class="form-control" placeholder="댓글을 입력해주세요.">
-						<button href="" type="button" class="commentBtn btn btn-none" data-post-id="${post.id}">게시</button>
+						<input type="text" id="commentText${content.post.id}" name="commentText" class="form-control" placeholder="댓글을 입력해주세요.">
+						<button type="button" class="commentBtn btn btn-none" data-post-id="${content.post.id}">게시</button>
 					</div>	
 				</c:if>
-				</c:forEach>		
 			</div>
-			<div>
-			</div>
+			
+			</c:forEach>
 		</div>	
 	</div>
 </div>
@@ -116,7 +125,7 @@ $(document).ready(function(){
 		formData.append("content", content);
 		formData.append("file", $('#file')[0].files[0]); // $('#file')[0] 첫번째 input file 태그를 의미 , flies[0] 업로드된 첫번째 파일을 의미 
 		
-		//AJAX from 데이터 전송 $.ajax({ ㅌ
+		//AJAX from 데이터 전송 $.ajax({
 		$.ajax({
 			type: "POST"
 			, url: "/post/create"
@@ -146,13 +155,13 @@ $(document).ready(function(){
 	let postId= $(this).data('post-id'); //data-post-id 
 		alert(postId);
 	
-		let commetText = $('#commentText' + postId).val();
-		alert(commetText);
+		let commentText = $('#commentText' + postId).val();
+		alert(commentText);
 		
 		$.ajax({
-			type:"post"
+			type:"POST"
 			,url:"/comment/create"
-			,data: {"postId":postId, "commentText":commetText}
+			,data: {"postId":postId, "content":commentText}
 			,success: function(data){
 				if(data.result == 'success'){
 					alert("댓글이 입력되었습니다.")
