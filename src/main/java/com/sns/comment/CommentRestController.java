@@ -3,6 +3,9 @@ package com.sns.comment;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,15 +21,20 @@ public class CommentRestController {
 	
 	
 	@RequestMapping("/create")
-	public Map<String, Object> create(			
-			@RequestParam("postId") int postId,
-			@RequestParam("content") String content
+	public Map<String, Object> create(
 			
-			){
+			@RequestParam("postId") int postId,
+			@RequestParam("content") String content,
+			
+			HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+	Integer userId = (Integer) session.getAttribute("userId");
+		
 		Map<String, Object> result = new HashMap<>();
 		result.put("result", "success");
 		
-		int row = commentBO.addCommentList(postId, postId, content);
+		int row = commentBO.addCommentList(postId, userId, content);
 		
 		if(row < 1) {
 			result.put("error", "fail");

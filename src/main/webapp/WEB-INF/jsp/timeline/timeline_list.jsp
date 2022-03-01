@@ -36,7 +36,7 @@
 					<li>${content.post.content}</li>
 				</ul>
 			
-				<div class="d-flex justify-content-start mt-2">
+				<div class="d-flex justify-content-start mt-2 ml-3">
 					<a href="#" class="mr-2"><img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/></a>
 					<span class=""><b>좋아요 개</b></span>
 				</div>
@@ -49,7 +49,7 @@
 				
 				<c:forEach var="comment" items="${content.commentList}">	
 					<div class="comment-list ">
-						<span class="ml-2"><b>댓글쓴이: ${comment.user.name}</b></span>
+						<span class="ml-2"><b>${comment.user.name}</b></span>
 						<span>${comment.comment.content}</span>
 						
 						<a href="#" class="commentDelBtn">
