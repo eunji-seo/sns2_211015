@@ -14,7 +14,9 @@ public class FileMangerService {
 
 	// CDN 서버 (이미지, css, js) 정적인 내용을 다른 서버로 분리할때 경로는 명시해야함 
 	///Users/seoeunji/git/sns_211015
-		public final static String FILE_UPLOAD_PATH = "/Users/seoeunji/Library/Containers/com.linearity.vn/Data/Documents/6.spring_project/sns-211015/workspace/images/";
+	///Users/seoeunji/Library/Containers/com.linearity.vn/Data/Documents/6.spring_project/sns-211015/workspace/images/
+	//D:\\서은지_211015\\6_spring-project\\sns\\sns_workspace\\images/
+		public final static String FILE_UPLOAD_PATH = "D:\\서은지_211015\\6_spring-project\\sns\\sns_workspace\\images/";
 		//
 		public String saveFile(String userLoginId, MultipartFile file) {
 			// 파일 디렉토리 경로 예: toma1019_16456453342/sun.png
