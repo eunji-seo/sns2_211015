@@ -4,7 +4,7 @@ header{height:80px;}
 
 footer{height:50px}
 li{list-style:none}
-
+a{color:#000; decoration: none}
 h1{line-height:center;}
 
 /* sign_up */

@@ -31,14 +31,16 @@ public class LikeRestController {
 		
 		Map<String, Object> result = new HashMap<>();
 		result.put("result", "success");
+		
 		if(userId == null) {
 			result.put("result", "error");
 			result.put("errorMassage", "로그인 후 사용가능합니다.");
+			return result;
 		}
 		
 		
 		// TODO 좋아요 갯수 BO 
-		
+		likeBO.countLikeByUserId(postId);
 		
 		// TODO 사용자의 좋아요 여부 
 		likeBO.addLike(postId, userId);

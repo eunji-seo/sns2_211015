@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.sns.like.dao.LikeDAO">
- 	<select id="selectExsistLikePostIdUserId" parameterType="map">
+ 	<select id="selectExsistLikePostIdUserId" parameterType="map" resultType="int">
  		SELECT 
  			COUNT(1)
  		FROM
@@ -29,4 +29,12 @@
  			,NOW()
  		)
  	</insert>
+ 	<delete id="deleteLikeByUserIdPostId" parameterType="map" >
+ 		DELETE
+ 		FROM
+ 			`like`
+ 		WHERE
+ 			`postId` = #{postId}
+ 			AND `userId` = #{userId}
+ 	</delete>
  </mapper>

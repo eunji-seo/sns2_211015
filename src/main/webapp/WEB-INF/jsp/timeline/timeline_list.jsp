@@ -27,9 +27,12 @@
 					<span class="display-5 ml-2 text-white"><b>${content.user.loginId}</b></span>
 
 						<%-- 클릭할 수 있는 ... 버튼 이미지 --%>
-						<a href="#" class="more-btn">
-							<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
-						</a>
+						<%-- 글쓴사용자와 로그인 사용자가 일치할때만 삭제 가능--%>
+						<c:if test="${userName eq content.user.name}">
+							<a href="#" class="more-btn" data-toggle="modal" data-target="#moreModal" data-post-id="${content.post.id}"> 
+								<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
+							</a>
+						</c:if>
 					
 				</div>
 				<ul class="list m-2">
@@ -48,7 +51,7 @@
 						</c:if>
 					
 				</a>		
-					<a class=""><b>좋아요 개</b></a>
+					<a class=""><b>좋아요${content.likeCount}개</b></a>
 				</div>
 			
 			</div>
@@ -62,7 +65,7 @@
 					<div class="comment-list ">
 						<span class="ml-2"><b>${comment.user.loginId}</b></span>
 						<span>${comment.comment.content}</span>
-						
+						<%-- 댓글 삭제버튼 --%>
 						<a href="#" class="commentDelBtn">
 							<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
 						</a>
@@ -82,6 +85,25 @@
 		</div>	
 	</div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="moreModal">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+      	<%-- modal 창 안에 내용 넣기 --%>
+      	<div class="">
+      		<div class="my-3 text-center">
+      			<a href="#" class="del-post d-block" >삭제하기</a>
+      		</div>
+      		<div class="border-top py-3 text-center">
+      			<a href="#" class="cancel d-block" data-dismiss="modal">취소</a>
+      		</div>
+      	</div>
+    </div>
+  </div>
+</div>
+
+
 <script>
 $(document).ready(function(){
 	
@@ -205,8 +227,7 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type: "POST"
-			, url: "/like/{postId}"
-			, data:{"postId":postId}
+			, url: "/like/" + postId
 			, success: function(data){
 				if(data.result == 'success'){
 					location.reload();
@@ -220,6 +241,26 @@ $(document).ready(function(){
 			
 		});
 	});
+	
+	//카드에서 더보기(...) 클릭시 모달에 삭제될 글 번호를 넣어준다.
+	$('.more-btn').on('click', function(e){
+		e.preventDefault();
+		
+		let postId = $(this).data('post-id');
+		alert(postId);
+		
+		$('#moreModal').data('post-id', postId);// set data-post-id="1" 같다 
+	});
+	
+	
+	// 모달창 안에 있는 삭제하기 버튼 클릭
+	$('#moreModal .del-post').on('click', function(e){
+		e.preventDefault();
+		
+		let postId = $('#moreModal').data('post-id'); // get 꺼내서 사용할수 있게 된다
+		alert(postId);
+	});
+
 	
 });
 </script>
