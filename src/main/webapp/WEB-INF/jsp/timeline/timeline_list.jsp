@@ -25,10 +25,7 @@
 			<div class="nickname-group mt-3">
 				<div class="bg-secondary h-10 border rounded d-flex justify-content-between pr-2">
 					<span class="display-5 ml-2 text-white"><b>${content.user.loginId}</b></span>
-<<<<<<< HEAD
-						
-=======
->>>>>>> fe56c127a2709cd2eac65ea6187e71bd5e373c5a
+
 						<%-- 클릭할 수 있는 ... 버튼 이미지 --%>
 						<a href="#" class="more-btn">
 							<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
@@ -39,18 +36,21 @@
 					<li><img width="400" src="${content.post.imagePath}" alt="이미지" class="m-2"/></li>
 					<li>${content.post.content}</li>
 				</ul>
-			
 				<div class="d-flex justify-content-start mt-2 ml-3">
+				<a href="#" class="likeBtn mr-2" data-post-id="${content.post.id}" data-user-id="${content.user.id}">
 						<%-- 좋아요 누름 --%>
-					<a href="#" class="mr-2">
-						<img width="18" src="https://www.iconninja.com/files/214/518/441/heart-icon.png"/>
-					</a>
+						<c:if test="${content.filledLike eq false}">
+							<img width="18" src="https://www.iconninja.com/files/214/518/441/heart-icon.png"/>
+						</c:if>
 						<%-- 좋아요 해제 --%>
-					<a href="#" class="mr-2">
-						<img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/>
-					</a>	
-					<span class=""><b>좋아요 개</b></span>
+						<c:if test="${content.filledLike eq true}">
+							<img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/>
+						</c:if>
+					
+				</a>		
+					<a class=""><b>좋아요 개</b></a>
 				</div>
+			
 			</div>
 			<div class="comment-group m-2">
 			<c:if test="${not empty content.commentList}">
@@ -189,7 +189,37 @@ $(document).ready(function(){
 		});
 		
 	});
-	
+	$('.likeBtn').on('click', function(e){
+			e.preventDefault();
+			
+		let	postId = $(this).data('post-id');
+		let userId = $(this).data('user-id');
+		
+		console.log(postId);
+		console.log(userId);
+		
+		if(userId == ''){
+			alert("로그인후 사용가능합니다.");
+			return;
+		}
+		
+		$.ajax({
+			type: "POST"
+			, url: "/like/{postId}"
+			, data:{"postId":postId}
+			, success: function(data){
+				if(data.result == 'success'){
+					location.reload();
+				}else {
+					alert(data.errorMassage);
+				}
+			}
+			, error: function(e){
+				alert("좋아요의 실패하였습니다.");	
+			}
+			
+		});
+	});
 	
 });
 </script>

@@ -1,9 +1,20 @@
 package com.sns.like.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LikeDAO {
+	
+	public int selectExsistLikePostIdUserId(
+			@Param("postId") int postId, 
+			@Param("userId") Integer userId);
 
-	public int likeCount(int postId);
+	public void insertLike (
+			@Param("postId") int postId , 
+			@Param("userId") int userId);
+	
+	public void DeleteLike (
+			@Param("postId") int postId , 
+			@Param("userId") int userId);
 }

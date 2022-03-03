@@ -3,5 +3,30 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.sns.like.dao.LikeDAO">
- 
+ 	<select id="selectExsistLikePostIdUserId" parameterType="map">
+ 		SELECT 
+ 			COUNT(1)
+ 		FROM
+ 			`like`
+ 		WHERE 
+ 			`postId` = #{postId}
+ 			<if test="userId != null">
+ 			AND `userId` = #{userId}
+ 			</if>
+ 			
+ 	</select>
+ 	<insert id="insertLike" parameterType="map">
+ 		INSERT INTO `like`
+ 		(
+ 			`userId`
+			,`postId`
+			,`createdAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+ 			, #{postId}
+ 			,NOW()
+ 		)
+ 	</insert>
  </mapper>
