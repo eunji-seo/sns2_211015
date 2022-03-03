@@ -25,7 +25,10 @@
 			<div class="nickname-group mt-3">
 				<div class="bg-secondary h-10 border rounded d-flex justify-content-between pr-2">
 					<span class="display-5 ml-2 text-white"><b>${content.user.loginId}</b></span>
+<<<<<<< HEAD
 						
+=======
+>>>>>>> fe56c127a2709cd2eac65ea6187e71bd5e373c5a
 						<%-- 클릭할 수 있는 ... 버튼 이미지 --%>
 						<a href="#" class="more-btn">
 							<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
@@ -38,7 +41,14 @@
 				</ul>
 			
 				<div class="d-flex justify-content-start mt-2 ml-3">
-					<a href="#" class="mr-2"><img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/></a>
+						<%-- 좋아요 누름 --%>
+					<a href="#" class="mr-2">
+						<img width="18" src="https://www.iconninja.com/files/214/518/441/heart-icon.png"/>
+					</a>
+						<%-- 좋아요 해제 --%>
+					<a href="#" class="mr-2">
+						<img width="18" src="https://www.iconninja.com/files/527/809/128/heart-icon.png"/>
+					</a>	
 					<span class=""><b>좋아요 개</b></span>
 				</div>
 			</div>

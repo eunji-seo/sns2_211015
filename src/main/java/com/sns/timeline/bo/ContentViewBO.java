@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sns.comment.bo.CommentBO;
 import com.sns.comment.model.CommentView;
+import com.sns.like.model.Like;
 import com.sns.post.bo.PostBO;
 import com.sns.post.model.Post;
 import com.sns.timeline.model.ContentView;
@@ -43,6 +44,14 @@ public class ContentViewBO {
 			
 			List<CommentView> commentList =  commentBO.generateCommentViewByPostId(post.getId());
 			content.setCommentList(commentList);
+			
+			// 좋아요 갯수 세팅
+			
+			List<Like> likeCount = ; 
+			
+			// 로그인됨 사용자의 좋아요 여부 세팅
+			
+			
 			
 			contentViewList.add(content);
 		}

@@ -12,7 +12,10 @@ public class ContentView { // contentView.post.id
 	private Post post; // 글
 	private User user; // 글쓴이
 	private List<CommentView> commentList; // 글의 댓글  // ${content.commentList.user.name} 댓글쓴이
-	//private List<Like> likeList;
+	
+	private int likeCount; // 없으면 0, 있으면 숫자 좋아요의 갯수 
+	private boolean filledLike; // 내가 좋아요를 눌렀는지의 여부 
+	
 	public Post getPost() {
 		return post;
 	}
@@ -30,6 +33,18 @@ public class ContentView { // contentView.post.id
 	}
 	public void setCommentList(List<CommentView> commentList) {
 		this.commentList = commentList;
+	}
+	public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+	public boolean isFilledLike() { // boolean get 아니고 is 로 됨
+		return filledLike;
+	}
+	public void setFilledLike(boolean filledLike) {
+		this.filledLike = filledLike;
 	}
 	
 	
