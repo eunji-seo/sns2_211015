@@ -12,7 +12,7 @@
 			</div>
 			<div id="ischackLength" class="small text-danger d-none">4자 이상 입력해주세요.</div>
 			<div id="ischackDupuilcated" class="small text-danger d-none">중복된 아이디가 있습니다.</div>
-			<div id="ischackOk" class="small text-danger d-none">사용 가능한 아이디입니다.</div>
+			<div id="ischackOk" class="small text-success d-none">사용 가능한 아이디입니다.</div>
 		</div>
 		<div>
 			<label>password</label>

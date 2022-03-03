@@ -39,7 +39,7 @@ public class UserController {
 		 * @param request
 		 * @return
 		 */
-		@RequestMapping("/sign_out")
+		@RequestMapping("/sign_out") // 로그아웃은 예외로 뷰화면에 만든다.
 		public String signOut(
 				HttpServletRequest request) {
 			

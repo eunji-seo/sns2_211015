@@ -24,7 +24,8 @@
 			<c:forEach var="content" items="${contentViewList}">	
 			<div class="nickname-group mt-3">
 				<div class="bg-secondary h-10 border rounded d-flex justify-content-between pr-2">
-					<span class="display-5 ml-2 text-white"><b>${content.user.name}</b></span>
+					<span class="display-5 ml-2 text-white"><b>${content.user.loginId}</b></span>
+						
 						<%-- 클릭할 수 있는 ... 버튼 이미지 --%>
 						<a href="#" class="more-btn">
 							<img src="https://www.iconninja.com/files/860/824/939/more-icon.png" width="30">
@@ -49,7 +50,7 @@
 				
 				<c:forEach var="comment" items="${content.commentList}">	
 					<div class="comment-list ">
-						<span class="ml-2"><b>${comment.user.name}</b></span>
+						<span class="ml-2"><b>${comment.user.loginId}</b></span>
 						<span>${comment.comment.content}</span>
 						
 						<a href="#" class="commentDelBtn">

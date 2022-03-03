@@ -7,7 +7,7 @@ import com.sns.user.model.User;
 @Repository
 public interface UserDAO {
 	
-	public boolean existLoginId(String userLoginId);
+	public boolean existLoginId(String loginId);
 
 	public int insertUser(
 			@Param("loginId") String loginId, 
