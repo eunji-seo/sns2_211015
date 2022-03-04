@@ -231,6 +231,7 @@ $(document).ready(function(){
 			, success: function(data){
 				if(data.result == 'success'){
 					location.reload();
+					
 				}else {
 					alert(data.errorMassage);
 				}

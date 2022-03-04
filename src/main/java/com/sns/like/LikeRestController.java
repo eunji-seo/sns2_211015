@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sns.like.bo.LikeBO;
@@ -20,7 +20,7 @@ public class LikeRestController {
 	private LikeBO likeBO;
 	
 	// /like/{postId} // 와일드카드
-	@RequestMapping("/like/{postId}") //pathVariable
+	@PostMapping("/like/{postId}") //pathVariable
 	public Map<String, Object> like(
 			@PathVariable int postId, 
 			HttpServletRequest request
@@ -41,7 +41,6 @@ public class LikeRestController {
 		
 		// TODO 좋아요 갯수 BO 
 		likeBO.countLikeByUserId(postId);
-		
 		// TODO 사용자의 좋아요 여부 
 		likeBO.addLike(postId, userId);
 		

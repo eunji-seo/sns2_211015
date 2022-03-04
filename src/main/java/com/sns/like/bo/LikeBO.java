@@ -24,8 +24,8 @@ public class LikeBO {
 		if(userId == null) {
 			return false;
 		}
-		int count= likeDAO.selectExsistLikePostIdUserId(postId, userId);
-		return count < 0? true : false;
+		int count = likeDAO.selectExsistLikePostIdUserId(postId, userId);
+		return count > 0? true : false;
 	}
 	public int countLikeByUserId(int postId) {
 		return likeDAO.selectExsistLikePostIdUserId(postId, null);
