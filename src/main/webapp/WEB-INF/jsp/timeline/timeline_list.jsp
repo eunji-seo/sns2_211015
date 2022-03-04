@@ -260,6 +260,29 @@ $(document).ready(function(){
 		
 		let postId = $('#moreModal').data('post-id'); // get 꺼내서 사용할수 있게 된다
 		alert(postId);
+		
+		// 삭제 AJAX DELETE
+		
+		$.ajax({
+			type:"DELETE"
+			,url:"/post/delete"
+			,data:{"postId": postId}
+			,success: function(data){
+				if(data.result == 'success'){
+					alert("삭제 되었습니다.");
+					
+				}else{
+					alert(data.errorMessage);
+				}
+			
+			}
+			,error: function(e){
+				alert("삭제가 실패되었습니다. 관리자에 문의해주세요.");
+			}
+			
+			
+		});
+		
 	});
 
 	
