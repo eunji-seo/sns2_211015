@@ -50,7 +50,7 @@ public class ContentViewBO {
 			
 			// 좋아요 갯수 세팅
 			
-			int likeCount = likeBO.countLikeByUserId(post.getId());
+			int likeCount = likeBO.countLikeByPostId(post.getId());
 			content.setLikeCount(likeCount);
 			
 			// 로그인됨 사용자의 좋아요 여부 세팅

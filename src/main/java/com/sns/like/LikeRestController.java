@@ -40,7 +40,7 @@ public class LikeRestController {
 		
 		
 		// TODO 좋아요 갯수 BO 
-		likeBO.countLikeByUserId(postId);
+		likeBO.countLikeByPostId(postId);
 		// TODO 사용자의 좋아요 여부 
 		likeBO.addLike(postId, userId);
 		
