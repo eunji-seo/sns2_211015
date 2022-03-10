@@ -15,7 +15,7 @@
 						<div id="fileName" class="ml-2">
 						</div>
 				</div>				
-				<button type="button" id="uploadBtn" class="btn btn-primary">업로드</button>
+				<button type="button" id="uploadBtn" class="btn btn-warning">업로드</button>
 				
 			</div>	
 		</div>
@@ -23,8 +23,8 @@
 		<div class="timelinelist-group mt-3">
 			<c:forEach var="content" items="${contentViewList}">	
 			<div class="nickname-group mt-3">
-				<div class="bg-secondary h-10 border rounded d-flex justify-content-between pr-2">
-					<span class="display-5 ml-2 text-white"><b>${content.user.loginId}</b></span>
+				<div class="timeline-bar h-10 border rounded d-flex justify-content-between pr-2">
+					<span class="display-5 ml-2"><b>${content.user.loginId}</b></span>
 
 						<%-- 클릭할 수 있는 ... 버튼 이미지 --%>
 						<%-- 글쓴사용자와 로그인 사용자가 일치할때만 삭제 가능--%>
@@ -35,11 +35,11 @@
 						</c:if>
 					
 				</div>
-				<ul class="list m-2">
-					<li><img width="400" src="${content.post.imagePath}" alt="이미지" class="m-2"/></li>
-					<li>${content.post.content}</li>
-				</ul>
-				<div class="d-flex justify-content-start mt-2 ml-3">
+					<ul class="list mr-4 ">
+						<li><img width="400" src="${content.post.imagePath}" alt="이미지" class="m-2"/></li>
+						<li>${content.post.content}</li>
+					</ul>
+				<div class="d-flex justify-content-start mt-2 ml-5">
 				<a href="#" class="likeBtn mr-2" data-post-id="${content.post.id}" data-user-id="${content.user.id}">
 						<%-- 좋아요 누름 --%>
 						<c:if test="${content.filledLike eq false}">
@@ -55,26 +55,28 @@
 				</div>
 			
 			</div>
-			<div class="comment-group m-2">
+			<div class="comment-group m-2 ml-4 mr-4" >
 			<c:if test="${not empty content.commentList}">
-				<div class="bg-secondary h-10 border rounded ">
-					<span class="ml-2 text-white"><b>댓글</b></span>
+				<div class="timeline-bar h-10 border rounded ">
+					<span class="ml-2"><b>댓글</b></span>
 				</div>
 				
 				<c:forEach var="comment" items="${content.commentList}">	
-					<div class="comment-list ">
+					<div class="comment-list  ">
 						<span class="ml-2"><b>${comment.user.loginId}</b></span>
 						<span>${comment.comment.content}</span>
 						<%-- 댓글 삭제버튼 --%>
-						<a href="#" class="commentDelBtn">
-							<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
-						</a>
+						<c:if test="${comment.user.id == userId}">
+							<a href="#" class="commentDelBtn" data-comment-id="${comment.comment.id}">
+								<img src="https://www.iconninja.com/files/603/22/506/x-icon.png" width="10px" height="10px">
+							</a>
+						</c:if>
 					</div>
 				</c:forEach>
 				
 			</c:if>
 				<c:if test="${not empty userId}">
-					<div class="cleate-comment-group d-flex justify-content-start m-2">
+					<div class="cleate-comment-group d-flex justify-content-start mt-2 ">
 						<input type="text" id="commentText${content.post.id}" name="commentText" class="form-control" placeholder="댓글을 입력해주세요.">
 						<button type="button" class="commentBtn btn btn-none" data-post-id="${content.post.id}">게시</button>
 					</div>	
@@ -186,10 +188,15 @@ $(document).ready(function(){
 	// 댓글쓰기 - 게시 버튼 클릭
 	$('.commentBtn').on('click',function(){
 	let postId= $(this).data('post-id'); //data-post-id 
-		alert(postId);
+		//alert(postId);
 	
 		let commentText = $('#commentText' + postId).val();
-		alert(commentText);
+		//alert(commentText);
+		
+		if(commentText == ''){
+			alert("댓글을 입력해주세요.")
+			return;
+		}
 		
 		$.ajax({
 			type:"POST"
@@ -248,7 +255,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		
 		let postId = $(this).data('post-id');
-		alert(postId);
+		//alert(postId);
 		
 		$('#moreModal').data('post-id', postId);// set data-post-id="1" 같다 
 	});
@@ -259,7 +266,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		
 		let postId = $('#moreModal').data('post-id'); // get 꺼내서 사용할수 있게 된다
-		alert(postId);
+		//alert(postId);
 		
 		// 삭제 AJAX DELETE
 		
@@ -270,6 +277,7 @@ $(document).ready(function(){
 			,success: function(data){
 				if(data.result == 'success'){
 					alert("삭제 되었습니다.");
+					location.reload();
 					
 				}else{
 					alert(data.errorMessage);
@@ -285,6 +293,34 @@ $(document).ready(function(){
 		
 	});
 
+	// 댓글 삭제
+	$('.commentDelBtn').on('click',function(e){
+		e.preventDefault();
+		
+		let commentId = $(this).data('comment-id');
+		//alert(commentId);
+		
+		
+		$.ajax({
+			type:"DELETE"
+			,url:"/comment/delete"
+			,data:{"commentId":commentId}
+		
+			,success:function(data){
+				if(data.result == "success"){
+					alert("삭제되었습니다.");
+					location.reload();				
+				}else{
+					alet(data.errorMessage);
+				}
+				
+			}
+			,error: function(e){
+				alert("댓글 삭제가 실패했습니다. 관리자에 문의바랍니다.")
+			}
+		});
+		
+	});
 	
 });
 </script>

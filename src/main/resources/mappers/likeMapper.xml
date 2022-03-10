@@ -29,13 +29,19 @@
  			,NOW()
  		)
  	</insert>
- 	<delete id="deleteLikeByUserIdPostId" parameterType="map" >
- 		DELETE
- 		FROM
- 			`like`
- 		WHERE
- 			`postId` = #{postId}
- 			AND `userId` = #{userId}
- 			
- 	</delete>
- </mapper>
+ 	<delete id="deleteLikeByPostIdUserId" parameterType="map">
+		DELETE
+		FROM
+			`like`
+		WHERE
+			postId = #{postId}
+			AND userId = #{userId}
+	</delete>
+	 <delete id="deleteLikeByPostId" parameterType="integer">
+			DELETE
+			FROM
+				`like`
+			WHERE
+				postId = #{postId}
+		</delete>
+	 </mapper>

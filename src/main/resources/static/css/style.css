@@ -1,11 +1,14 @@
 @charset "UTF-8";
 
-header{height:80px;}
+header{height:80px; background:#f0efe9;}
+
 
 footer{height:50px}
 li{list-style:none}
 a{color:#000; decoration: none}
 h1{line-height:center;}
+
+
 
 /* sign_up */
 
@@ -19,6 +22,7 @@ h1{line-height:center;}
 .login-box{width:600px; margin-top:100px;border:1px solid #ccc; box-shadow: 3px 3px 3px 3px #ccc;}
 
 /* timeline */
+.timeline-bar{background:#dedccd}
 .cleateTimeline{postion:relative;}
 .cleateTimelineUpload{
 	width:100%;
